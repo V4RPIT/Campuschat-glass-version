@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <defs>
+    <style>
+      .glyph { fill: #000000; fill-rule: evenodd; }
+    </style>
+  </defs>
+
+  <!-- Technical Corner Brackets -->
+  <path class="glyph" d="M 60,60 L 160,60 L 160,85 L 85,85 L 85,160 L 60,160 Z" />
+  <path class="glyph" d="M 740,60 L 640,60 L 640,85 L 715,85 L 715,160 L 740,160 Z" />
+  <path class="glyph" d="M 60,740 L 160,740 L 160,715 L 85,715 L 85,640 L 60,640 Z" />
+  <path class="glyph" d="M 740,740 L 640,740 L 640,715 L 715,715 L 715,640 L 740,640 Z" />
+
+  <!-- Online Dot -->
+  <circle class="glyph" cx="155" cy="470" r="40" />
+
+  <!-- Top Row: CAMP with 14px micro-gaps -->
+  <!-- C (115 to 235) -->
+  <path class="glyph" d="M 115,205 L 235,205 L 235,250 L 170,250 L 170,305 L 235,305 L 235,350 L 115,350 Z" />
+  <!-- A (249 to 375) -->
+  <path class="glyph" d="M 249,205 L 375,205 L 375,350 L 328,350 L 328,305 L 296,305 L 296,350 L 249,350 Z M 296,245 L 328,245 L 328,272 L 296,272 Z" />
+  <!-- M (389 to 535) -->
+  <path class="glyph" d="M 389,205 L 535,205 L 535,350 L 495,350 L 495,255 L 475,255 L 475,350 L 452,350 L 452,255 L 432,255 L 432,350 L 389,350 Z" />
+  <!-- P (549 to 665) -->
+  <path class="glyph" d="M 549,205 L 665,205 L 665,310 L 605,310 L 605,350 L 549,350 Z M 605,245 L 625,245 L 625,275 L 605,275 Z" />
+
+  <!-- Bottom Row: Elevated US -->
+  <!-- U (235 to 480) -->
+  <path class="glyph" d="M 235,425 L 325,425 L 325,545 L 390,545 L 390,425 L 480,425 L 480,605 L 235,605 Z" />
+  <!-- S (495 to 680) -->
+  <path class="glyph" d="M 495,425 L 680,425 L 680,485 L 585,485 L 585,505 L 680,505 L 680,605 L 495,605 L 495,545 L 595,545 L 595,525 L 495,525 Z" />
+</svg>

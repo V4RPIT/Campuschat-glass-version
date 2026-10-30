@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420">
+  <defs>
+    <style>
+      .glyph { fill: #000000; fill-rule: evenodd; }
+    </style>
+  </defs>
+
+  <!-- 1. Leading Dot (.) -->
+  <circle class="glyph" cx="62" cy="290" r="30" />
+
+  <!-- 2. Letter 'c' (x: 105 to 230, overhang left to x=60) -->
+  <path class="glyph" d="
+    M 60,145 
+    L 230,145 
+    L 230,195 
+    L 152,195 
+    L 152,240 
+    L 230,240 
+    L 230,290 
+    L 105,290 
+    L 105,195 
+    L 60,195 
+    Z
+  " />
+
+  <!-- Micro-gap 14px (230 to 244) -->
+
+  <!-- 3. Letter 'a' (x: 244 to 380, width 136) -->
+  <path class="glyph" d="
+    M 244,145 
+    L 380,145 
+    L 380,290 
+    L 332,290 
+    L 332,255 
+    L 292,255 
+    L 292,290 
+    L 244,290 
+    Z 
+    M 292,185 
+    L 332,185 
+    L 332,218 
+    L 292,218 
+    Z
+  " />
+
+  <!-- Micro-gap 14px (380 to 394) -->
+
+  <!-- 4. Letter 'm' (x: 394 to 604, width 210, three pillars, two slots) -->
+  <path class="glyph" d="
+    M 394,145 
+    L 604,145 
+    L 604,290 
+    L 556,290 
+    L 556,195 
+    L 522,195 
+    L 522,290 
+    L 476,290 
+    L 476,195 
+    L 442,195 
+    L 442,290 
+    L 394,290 
+    Z
+  " />
+
+  <!-- Micro-gap 14px (604 to 618) -->
+
+  <!-- 5. Letter 'p' (x: 618 to 754, width 136, descender drops to y=365) -->
+  <path class="glyph" d="
+    M 618,145 
+    L 754,145 
+    L 754,260 
+    L 666,260 
+    L 666,365 
+    L 618,365 
+    Z 
+    M 666,185 
+    L 706,185 
+    L 706,220 
+    L 666,220 
+    Z
+  " />
+
+  <!-- Micro-gap 16px (754 to 770) -->
+
+  <!-- 6. Letter 'U' (Elevated Capital rising to y=78, width 136, x: 770 to 906) -->
+  <path class="glyph" d="
+    M 770,78 
+    L 820,78 
+    L 820,240 
+    L 856,240 
+    L 856,78 
+    L 906,78 
+    L 906,290 
+    L 770,290 
+    Z
+  " />
+
+  <!-- Micro-gap 14px (906 to 920) -->
+
+  <!-- 7. Letter 'S' (x: 920 to 1060, width 140, stepped brutalist slab slots) -->
+  <path class="glyph" d="
+    M 920,145 
+    L 1060,145 
+    L 1060,192 
+    L 968,192 
+    L 968,208 
+    L 1060,208 
+    L 1060,290 
+    L 920,290 
+    L 920,243 
+    L 1012,243 
+    L 1012,227 
+    L 920,227 
+    Z
+  " />
+</svg>

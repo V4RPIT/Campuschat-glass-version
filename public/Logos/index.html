@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CampUS – Brand Identity & Logo Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09090b;
+      --card-bg: #141418;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --accent: #2f5bff;
+      --accent-glow: rgba(47, 91, 255, 0.3);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, sans-serif;
+      padding: 40px 24px 80px;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header {
+      margin-bottom: 48px;
+      text-align: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(47, 91, 255, 0.15);
+      color: #7094ff;
+      border: 1px solid rgba(47, 91, 255, 0.3);
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    header p {
+      color: var(--text-muted);
+      font-size: 16px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .logo-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    }
+    .card-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .card-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .card-header p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .previews {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--card-border);
+    }
+    .preview-box {
+      padding: 40px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      min-height: 180px;
+    }
+    .preview-light {
+      background: #f4f4f7;
+    }
+    .preview-dark {
+      background: #09090b;
+    }
+    .preview-label {
+      position: absolute;
+      top: 10px;
+      left: 14px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0.55;
+    }
+    .preview-light .preview-label { color: #111; }
+    .preview-dark .preview-label { color: #fff; }
+    .logo-img {
+      max-width: 85%;
+      max-height: 110px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.1));
+    }
+    .card-actions {
+      padding: 16px 24px;
+      background: rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .btn-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #436bff;
+      box-shadow: 0 2px 10px var(--accent-glow);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      border: 1px solid var(--card-border);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+    }
+    .meta-tag {
+      font-size: 11.5px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">Official Brand Assets</div>
+      <h1>CampUS Vector & Transparent PNG Logos</h1>
+      <p>High-resolution 300 DPI transparent PNG exports + pure scalable SVGs crafted with crystal-clear glyph separation and legible Devanagari lettering.</p>
+    </header>
+
+    <div class="grid">
+
+      <!-- OPTION 1: .campUS (Tokyo Style with Micro-Gaps) -->
+      <div class="logo-card">
+        <div class="card-header">
+          <h2>Option 1: .campUS (Geometric Brutalist - Micro-Separated)</h2>
+          <p>Inspired by Reference 1 (.tokyo) — Features crisp micro-gaps separating C, A, M, P, U, S for effortless legibility, rectangular slot counters, a leading message dot, and elevated capital U.</p>
+        </div>
+        <div class="previews">
+          <div class="preview-box preview-light">
+            <span class="preview-label">Black Version (Light BG)</span>
+            <img class="logo-img" src="campus_geometric_tokyo_style_black.png" alt=".campUS Black">
+          </div>
+          <div class="preview-box preview-dark">
+            <span class="preview-label">White Version (Dark OLED BG)</span>
+            <img class="logo-img" src="campus_geometric_tokyo_style_white.png" alt=".campUS White">
+          </div>
+        </div>
+        <div class="card-actions">
+          <span class="meta-tag">PNG: 5000 × 1750 px · 300 DPI</span>
+          <div class="btn-group">
+            <a href="campus_geometric_tokyo_style_black.png" download class="btn btn-primary">Black PNG</a>
+            <a href="campus_geometric_tokyo_style_white.png" download class="btn btn-primary">White PNG</a>
+            <a href="campus_geometric_tokyo_style_black.svg" download class="btn btn-secondary">Vector SVG</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- OPTION 2A: कैंपUS (Clear Open Pa + Bindu) -->
+      <div class="logo-card">
+        <div class="card-header">
+          <h2>Option 2: कैंपUS (Bilingual Fusion – Clean Open Pa)</h2>
+          <p>Inspired by Reference 2 (हेलNA) — Completely readable Devanagari Pa (प) with open top U-loop and vertical Khadi Pai, diamond bindu, dual chiseled matras, and bold angular Latin US.</p>
+        </div>
+        <div class="previews">
+          <div class="preview-box preview-light">
+            <span class="preview-label">Black Version (Light BG)</span>
+            <img class="logo-img" src="campus_bilingual_alt_fusion_black.png" alt="कैंपUS Black">
+          </div>
+          <div class="preview-box preview-dark">
+            <span class="preview-label">White Version (Dark OLED BG)</span>
+            <img class="logo-img" src="campus_bilingual_alt_fusion_white.png" alt="कैंपUS White">
+          </div>
+        </div>
+        <div class="card-actions">
+          <span class="meta-tag">PNG: 5250 × 1917 px · 300 DPI</span>
+          <div class="btn-group">
+            <a href="campus_bilingual_alt_fusion_black.png" download class="btn btn-primary">Black PNG</a>
+            <a href="campus_bilingual_alt_fusion_white.png" download class="btn btn-primary">White PNG</a>
+            <a href="campus_bilingual_alt_fusion_black.svg" download class="btn btn-secondary">Vector SVG</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- OPTION 2B: कैम्पUS (Full Conjunct with Half-Ma & Open Pa) -->
+      <div class="logo-card">
+        <div class="card-header">
+          <h2>Option 2B: कैम्पUS (Full Conjunct with Half-Ma)</h2>
+          <p>Full Hindi Devanagari conjunct spelling with distinct Half-Ma (म्) connected to a crystal-clear, open-loop Pa (प) and angular faceted Latin US.</p>
+        </div>
+        <div class="previews">
+          <div class="preview-box preview-light">
+            <span class="preview-label">Black Version (Light BG)</span>
+            <img class="logo-img" src="campus_bilingual_hindi_english_black.png" alt="कैम्पUS Black">
+          </div>
+          <div class="preview-box preview-dark">
+            <span class="preview-label">White Version (Dark OLED BG)</span>
+            <img class="logo-img" src="campus_bilingual_hindi_english_white.png" alt="कैम्पUS White">
+          </div>
+        </div>
+        <div class="card-actions">
+          <span class="meta-tag">PNG: 5750 × 1917 px · 300 DPI</span>
+          <div class="btn-group">
+            <a href="campus_bilingual_hindi_english_black.png" download class="btn btn-primary">Black PNG</a>
+            <a href="campus_bilingual_hindi_english_white.png" download class="btn btn-primary">White PNG</a>
+            <a href="campus_bilingual_hindi_english_black.svg" download class="btn btn-secondary">Vector SVG</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- OPTION 1B: CAMPUS Brutalist Badge / Icon -->
+      <div class="logo-card">
+        <div class="card-header">
+          <h2>Option 1B: CAMPUS Brutalist Badge / Icon</h2>
+          <p>Square 1:1 compact geometric emblem with technical corner brackets and modular brutalist typography with clear letter separation. Ideal for app icons, avatars, and favicons.</p>
+        </div>
+        <div class="previews">
+          <div class="preview-box preview-light">
+            <span class="preview-label">Black Version (Light BG)</span>
+            <img class="logo-img" src="campus_monogram_badge_black.png" alt="CAMPUS Badge Black">
+          </div>
+          <div class="preview-box preview-dark">
+            <span class="preview-label">White Version (Dark OLED BG)</span>
+            <img class="logo-img" src="campus_monogram_badge_white.png" alt="CAMPUS Badge White">
+          </div>
+        </div>
+        <div class="card-actions">
+          <span class="meta-tag">PNG: 3334 × 3334 px (1:1) · 300 DPI</span>
+          <div class="btn-group">
+            <a href="campus_monogram_badge_black.png" download class="btn btn-primary">Black PNG</a>
+            <a href="campus_monogram_badge_white.png" download class="btn btn-primary">White PNG</a>
+            <a href="campus_monogram_badge_black.svg" download class="btn btn-secondary">Vector SVG</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

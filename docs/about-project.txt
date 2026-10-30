@@ -1,0 +1,552 @@
+CAMPUS CHAT - PROJECT AND PRESENTATION GUIDE
+============================================
+
+This guide explains the current source code in this repository. It is intended
+to help you present the project, find where features are implemented, and
+answer common technical questions. It describes what the code does today;
+some older statements in README.md may not reflect the latest UI.
+
+
+1. PROJECT IN ONE MINUTE
+------------------------
+
+CampUS is a browser-based chat application for students. People can create or
+join communities using invite codes, chat in community channels (called
+"subgroups" in parts of the UI), and exchange private direct messages (DMs).
+It also supports accounts and recovery codes, profiles, file attachments,
+message replies and deletion, pinned chats, notifications, typing indicators,
+online/last-seen presence, message search, per-user chat clearing, and light
+and dark themes.
+
+The backend is Node.js with Express, Socket.IO, and SQLite. The frontend is
+plain HTML, CSS, and JavaScript; there is no frontend framework, bundler, or
+build step. Express serves both the API and the static files in public/.
+
+Short description for a presentation:
+"CampUS is a lightweight, real-time student chat app. Express handles the
+authenticated API, Socket.IO delivers live chat and presence events, SQLite
+stores accounts and conversations, and a plain JavaScript frontend renders
+the responsive interface."
+
+
+2. HOW THE PARTS WORK TOGETHER
+------------------------------
+
+Browser page:
+  public/index.html defines the page and loads style.css and app.js.
+  public/app.js manages user interaction, local UI state, API calls, and the
+  Socket.IO client.
+
+Server:
+  server.js creates an Express app and an HTTP server. Express handles normal
+  request/response operations (login, profiles, history, etc.). Socket.IO is
+  attached to the same HTTP server for live events.
+
+Database:
+  better-sqlite3 reads and writes the SQLite file configured by DB_PATH.
+  The default local database path is ./chat.db. It stores persistent users,
+  communities, channels, messages, notifications, and file data.
+
+Typical login flow:
+  1. The browser submits credentials to /api/login.
+  2. The server checks the password against its bcrypt hash and returns a JWT.
+  3. app.js stores the token in localStorage and calls /api/me.
+  4. app.js loads communities, DMs, and notifications, then opens a Socket.IO
+     connection using the token.
+  5. Future API requests send "Authorization: Bearer <token>"; the Socket.IO
+     handshake also carries the token.
+
+Typical message flow:
+  1. The browser emits a Socket.IO "send" event with the conversation target,
+     message text, optional attachment ID, and optional reply ID.
+  2. server.js authenticates the connection, validates access and content,
+     writes the message to SQLite, creates notifications, and emits "msg" to
+     the correct channel or personal rooms.
+  3. Connected clients receive the event and app.js adds the message to the
+     current conversation without reloading the page.
+
+
+3. FILE-BY-FILE GUIDE
+---------------------
+
+server.js
+  The backend entry point and the most important server-side file.
+  - Reads configuration: PORT, JWT_SECRET, SIGNUP_INVITE, and DB_PATH.
+  - Opens SQLite, creates tables and indexes, and applies small compatibility
+    migrations when new columns are missing.
+  - Defines authentication helpers, public data shaping, authorization
+    checks, and the shared message query.
+  - Serves the JSON REST API for accounts, communities, messages, search,
+    profiles, notifications, and attachments.
+  - Implements Socket.IO authentication, channel and user rooms, message
+    delivery, typing indicators, and online/last-seen presence.
+  - Starts the web server.
+  When asked "where is the backend?", answer server.js.
+
+public/index.html
+  The semantic structure of the page; it does not contain the main app logic.
+  It defines:
+  - Login, sign-up, and recovery forms.
+  - The community rail, channel/DM list, chat header, message area, and
+    message composer.
+  - Account menu, chat options, notifications panel, profile drawer, and
+    search panel.
+  - Profile settings and confirmation dialogs, plus a toast region.
+  It also sets the initial theme from localStorage before the stylesheet
+  loads, which helps avoid a flash of the wrong theme.
+  When asked "where is the page structure?", answer public/index.html.
+
+public/style.css
+  All layout and visual styling. It contains the dark theme defaults, light
+  theme overrides, responsive desktop/tablet/mobile layouts, message bubbles,
+  controls, dialogs, menus, animations, and reduced-motion handling. CSS
+  custom properties such as --panel, --tx, and --acc define many theme colors.
+  When asked "where do I change the appearance?", answer public/style.css.
+
+public/app.js
+  All browser-side application behavior. It has no framework dependency.
+  Important responsibilities include:
+  - API helper and HTML escaping for user-provided text.
+  - Theme and pinned-chat preferences in localStorage.
+  - Login/sign-up/recovery and app initialization.
+  - Loading communities, channels, DMs, messages, profiles, and notifications.
+  - Search, navigation to a search result, message rendering, reply/delete,
+    attachment upload/download, and the composer.
+  - Socket.IO events for messages, typing, notifications, presence, and
+    deletion updates.
+  - Coordinating popups/dialogs and outside-click/Escape closing.
+  When asked "where is the frontend behavior?", answer public/app.js.
+
+package.json
+  Project metadata, the Node.js engine requirement (Node 18 or newer), the
+  dependency list, and commands:
+    npm start  -> node server.js
+    npm run dev -> node --watch server.js
+  Dependencies include Express, Socket.IO, better-sqlite3, bcryptjs,
+  jsonwebtoken, and express-rate-limit.
+
+package-lock.json
+  The exact resolved dependency versions and dependency tree used by npm.
+  Keep it in version control so installs are repeatable. It is generated by
+  npm; it is not where application features are implemented.
+
+README.md
+  The original project setup, deployment, feature overview, and project map.
+  Important: parts of it are now stale. For example, the current code has
+  light/dark themes, pinned chats, search, and profile/notification panels,
+  even though older README text says theme switching was removed. When
+  presenting a feature, use the current code and this guide rather than
+  relying on those outdated statements.
+
+.env.example
+  A safe template describing environment variables. Copy it to .env for local
+  configuration and replace the JWT secret with a long random value.
+  Never use a real secret from .env in a presentation or commit it.
+
+.env
+  Local machine configuration. It is ignored by Git. Do not share, print, or
+  commit its contents; it may contain a private JWT signing secret.
+
+.gitignore
+  Excludes dependencies, SQLite database files and WAL sidecars, local .env,
+  and editor workspace files from Git.
+
+public/campus-chat.code-workspace
+  A small VS Code workspace file pointing the editor at the repository root.
+  It is developer convenience configuration, not part of the running app.
+
+Social Concept Application (iPad)(1).jpg
+  A supplied visual reference/design image. It is not loaded by the live
+  application code.
+
+chat.db, chat.db-shm, chat.db-wal (created at runtime)
+  The SQLite database and its write-ahead-log files. They contain real
+  application data, not source code. Do not share these files in a public
+  presentation or repository. The *.db* patterns are ignored by Git.
+
+node_modules/ (created by npm install)
+  Installed third-party packages. This is generated and should not be edited
+  or committed.
+
+There is no dedicated test directory or test script configured in
+package.json at the time this guide was written.
+
+
+4. DATABASE TABLES AND DATA MODEL
+---------------------------------
+
+The schema is created near the beginning of server.js. SQLite is used because
+it is simple to run locally and the database is a single file.
+
+users
+  One row per account: username, bcrypt password hash, recovery-code hash,
+  avatar, bio, flair, account creation time, and last-seen time. Passwords and
+  recovery codes are not stored as plain text.
+
+communities
+  A student group/community with a name, unique join code, owner, optional
+  picture and description, and creation timestamp.
+
+members
+  Many-to-many relationship between users and communities. The primary key
+  prevents the same user being added to a community twice.
+
+channels
+  Text channels inside a community. The interface sometimes calls these
+  subgroups. New communities receive general, notes, and memes by default.
+
+messages
+  Message text, sender, timestamp, and either a channel_id or a dm_key.
+  Optional fields link a message to an attachment and/or the message it
+  replies to. DM keys sort the two user IDs, so both participants refer to
+  the same conversation key.
+
+attachments
+  Uploaded file metadata and binary data (BLOB), along with its uploader.
+  The message points to the attachment by attachment_id.
+
+notifications
+  Per-recipient records for messages, with read/unread state. Multiple users
+  can each have their own notification for one message.
+
+conversation_clears
+  Per-user, per-conversation cutoff. Clearing a chat does NOT delete shared
+  messages: it stores the highest message ID hidden for that one user.
+  Messages arriving later have larger IDs and continue to appear.
+
+Indexes
+  Indexes on channel/message IDs, DM/message IDs, and notification state help
+  common history and unread-count lookups.
+
+Database compatibility:
+  server.js checks for a few newer columns (attachments, reply_to_id, avatar,
+  last_seen) and adds any missing columns. This allows older local database
+  files to be opened after these features were introduced.
+
+
+5. MAIN FEATURES AND WHERE TO FIND THEM
+---------------------------------------
+
+Authentication and recovery
+  UI: public/index.html and public/app.js.
+  API: POST /api/signup, POST /api/login, POST /api/recover.
+  Password hashes: bcryptjs. Sessions: signed JWT, currently valid for 30 days.
+  Signup validates username/password, optionally requires an invite code, and
+  includes a hidden honeypot field for basic bot filtering. Signup returns a
+  one-time recovery code; the app asks the user to save it.
+
+Communities and channels
+  UI/navigation: public/app.js.
+  API: GET/POST /api/communities, POST /api/communities/join,
+  GET/PUT /api/communities/:id, and channel create/rename/delete routes.
+  Community owners can edit the community name, picture, and description in a
+  profile-style details editor, view the community creation date, and manage
+  channels. The picture is changed through the pencil control on the avatar.
+  Owners can also permanently delete the community, which removes its channels,
+  messages, replies, notifications, associated unreferenced attachments, and
+  memberships for every member after a confirmation warning.
+  Members must belong to the community to read its channels.
+
+Profile settings
+  UI: public/index.html and public/app.js; API: GET/PUT /api/me.
+  The account menu opens the profile-style editor. Users can preview and
+  change their avatar with the circular pencil control, edit their flair and
+  bio, and see their join date. Usernames are displayed but are not editable.
+
+Direct messages
+  UI/navigation: public/app.js.
+  API: GET /api/dms and GET /api/messages?dm=username.
+  Socket room: u:<user ID>. The same sorted DM key represents the conversation
+  from both participants' sides.
+
+Messages and message actions
+  UI rendering/composer: public/app.js, especially the message template and
+  composer handlers.
+  History API: GET /api/messages.
+  Live sending: Socket.IO "send"; server sends "msg".
+  A message may include text, a file attachment, and a reply reference.
+  A sender may delete their own message; a community owner can also delete
+  messages in that community. Deletion is broadcast so open clients update.
+
+Attachments
+  Upload: POST /api/attachments. Binary request body; max size is 50 MB.
+  The client uploads first, then sends the returned attachment ID with the
+  message. The server checks that the current user owns that upload.
+  Download: GET /api/attachments/:id. Access is limited to members of the
+  channel or one of the DM participants. Data is stored in SQLite.
+
+Replies
+  The message menu or a horizontal swipe/pointer gesture selects a message.
+  app.js shows a reply preview; the server checks that the replied-to message
+  is in the same channel or DM. If the original message is deleted, the reply
+  can show that it is no longer available.
+
+Notifications
+  API: GET /api/notifications and POST /api/notifications/read.
+  New channel/DM messages create recipient notifications. The client updates
+  the unread badge from the Socket.IO "notifications-updated" event.
+  Notification clicks open the relevant conversation and jump to its message.
+
+Typing and presence
+  Socket.IO events: "typing", "watch-presence", and "presence".
+  Typing state expires after a short timeout so a lost disconnect event does
+  not leave a permanent indicator. Presence is tracked in server memory while
+  users are online; last-seen timestamps are stored in SQLite on disconnect.
+  Profile/status visibility is limited to users with a shared community or DM.
+
+Search
+  API: GET /api/search?q=...
+  Optional channel=<id> or dm=<username> narrows search to the open
+  conversation. Without a scope it searches conversations the current user
+  can access. It searches message text and attachment names, returns up to 50
+  newest matches, and ignores messages hidden by that user's clear cutoff.
+  Selecting a result opens its conversation around the selected message.
+
+Clear chat
+  API: POST /api/conversations/clear.
+  Stores the current maximum message ID as the user's cutoff and marks
+  matching notifications read. Other participants keep their history.
+
+Pinned/starred chats
+  Stored in browser localStorage, per logged-in account. They are a local UI
+  preference and are not synchronized to the server or other devices.
+
+Themes and animation
+  Theme preference uses localStorage key campus.theme. index.html applies the
+  theme early; app.js toggles it; style.css provides dark and light rules.
+  Popup windows animate open/close; reduced-motion preferences are respected.
+
+Responsive layout
+  style.css changes the three-column desktop layout to a mobile chat view with
+  a slide-out community/channel navigation drawer at narrow widths.
+
+
+6. IMPORTANT API ROUTES
+-----------------------
+
+Health:
+  GET    /health
+
+Account:
+  POST   /api/signup
+  POST   /api/login
+  POST   /api/recover
+  GET    /api/me
+  PUT    /api/me
+  GET    /api/users/:username/profile
+
+Community/channel:
+  GET    /api/communities
+  POST   /api/communities
+  POST   /api/communities/join
+  GET    /api/communities/:id
+  PUT    /api/communities/:id
+  POST   /api/communities/:id/channels
+  PUT    /api/communities/:id/channels/:channelId
+  DELETE /api/communities/:id/channels/:channelId
+  DELETE /api/communities/:id (owner only; permanently deletes the community
+    and its shared data)
+
+Messages/files/search:
+  GET    /api/messages
+  POST   /api/conversations/clear
+  DELETE /api/messages/:id
+  POST   /api/attachments
+  GET    /api/attachments/:id
+  GET    /api/search
+
+Notifications and DMs:
+  GET    /api/notifications
+  POST   /api/notifications/read
+  GET    /api/dms
+
+Most API routes (except health, signup, login, and recovery) use the auth
+middleware and require a valid bearer token. Community/channel, search,
+profile, and attachment routes also enforce access checks on the server.
+
+
+7. REALTIME SOCKET.IO EVENTS
+----------------------------
+
+Client -> server:
+  send
+    Submit a message to a channel or DM. The server acknowledges success or
+    failure and broadcasts a "msg" to recipients.
+  typing
+    Start/stop typing status for a channel or DM.
+  watch-presence
+    Subscribe to presence updates for a user the requester is allowed to see.
+
+Server -> client:
+  msg
+    A newly saved message.
+  typing
+    Another participant started or stopped typing.
+  presence
+    User online state or last-seen time.
+  notifications-updated
+    Updated unread notification count.
+  message-deleted
+    A message was deleted and should be removed from the visible conversation.
+  channel-deleted
+    A channel was deleted and clients should update navigation.
+  community-deleted
+    A community was deleted. Clients update their community list, remove its
+    local channel pins, refresh notifications, and leave the deleted channel.
+  warn
+    A server warning, such as slowing down message sends.
+
+Rooms:
+  u:<user ID> is a personal room used for DMs and account notifications.
+  c:<channel ID> is a channel room joined only by that community's members.
+  presence:<user ID> is a room used by clients watching that user's presence.
+
+
+8. SECURITY AND RELIABILITY POINTS TO EXPLAIN
+---------------------------------------------
+
+- Passwords and recovery codes are hashed with bcryptjs.
+- Authenticated requests use signed JWTs; server-side middleware verifies the
+  signature and loads the corresponding user.
+- The server checks community membership before returning channel content.
+- Prepared SQL statements bind user data rather than concatenating it into SQL.
+- app.js HTML-escapes user-controlled text before inserting dynamic markup.
+- Signup and login/recovery have rate limits; the signup form has a honeypot.
+- An optional SIGNUP_INVITE can restrict signup to people with the code.
+- Message sends are rate-limited per live socket; message length is capped.
+- File size, attachment ownership, and attachment conversation access are
+  checked server-side.
+- Production mode refuses the built-in development JWT secret. Configure a
+  strong JWT_SECRET before deployment.
+- Use a persistent disk/volume in hosted deployments; otherwise a local SQLite
+  file may be lost when the host restarts or replaces its instance.
+
+Be honest about scope: this is a college project, not a fully hardened
+large-scale messaging service. Presence is held in process memory and this
+design assumes one server instance; horizontal scaling would need shared
+presence/state and a Socket.IO adapter. There is no email verification, MFA,
+or CAPTCHA in the current app. Do not claim features that are not implemented.
+
+
+9. RUNNING AND DEMONSTRATING IT
+-------------------------------
+
+Requirements:
+  Node.js 18 or newer and npm.
+
+Local setup:
+  1. Open a terminal at the repository root.
+  2. Run npm install.
+  3. Copy .env.example to .env and set a strong JWT_SECRET.
+  4. Run npm start (or npm run dev while developing).
+  5. Open http://localhost:3000.
+
+Useful presentation demo:
+  1. Register two student accounts in two browser sessions.
+  2. Create a community in one account and show its invite code.
+  3. Join that community from the second account.
+  4. Send a channel message and show it arrive live.
+  5. Show a DM, typing indicator, online/last-seen status, and profile.
+  6. Try a reply and, if time permits, an attachment.
+  7. Show notifications and search.
+  8. Pin a conversation, switch theme, then clear chat and explain that
+     clearing hides history only for the current account; it does not delete
+     everyone else's messages.
+
+For a two-account demo, a normal browser window and a private/incognito window
+are convenient. Use test accounts and sample data, not real student passwords
+or personal data.
+
+
+10. LIKELY PRESENTATION QUESTIONS AND ANSWERS
+---------------------------------------------
+
+Q: What is the technology stack?
+A: Node.js, Express, Socket.IO, SQLite through better-sqlite3, and a plain
+   HTML/CSS/JavaScript frontend.
+
+Q: Why use both REST and Socket.IO?
+A: REST is straightforward for loading or changing stored data. Socket.IO is
+   used where connected users need immediate updates, such as messages,
+   typing, presence, and notification counts.
+
+Q: Where is a message saved?
+A: server.js validates the send event and inserts a row in the messages table.
+   It then broadcasts the saved message to the channel or personal rooms.
+
+Q: How does a DM belong to both users?
+A: The server sorts the two numeric user IDs into one stable dm_key. Both
+   participants query the same key regardless of who initiated the DM.
+
+Q: Does Clear chat delete messages?
+A: No. It stores a per-user cutoff in conversation_clears. That user's history
+   and search hide messages through the cutoff, while other participants keep
+   their history and later messages still show.
+
+Q: How are passwords stored?
+A: As bcrypt hashes, not plain text. Login compares the submitted password
+   with the stored hash.
+
+Q: How does the browser stay signed in?
+A: It stores a JWT in localStorage and sends it as a bearer token on API
+   requests. Socket.IO also authenticates the connection using that token.
+
+Q: How does the app protect community messages?
+A: The server checks that the authenticated user is a member before returning
+   channel data or joining/broadcasting into channel rooms. Client-side UI
+   hiding alone is not relied upon for authorization.
+
+Q: Why SQLite?
+A: It is lightweight, needs no separate database server, and is practical for
+   a small single-instance project. A larger deployment could migrate to
+   PostgreSQL.
+
+Q: Where are uploaded files stored?
+A: In SQLite as BLOBs, with filename/type/size metadata. A message references
+   its attachment by ID.
+
+Q: Where does the theme preference live?
+A: In the browser's localStorage under campus.theme. Pinned chats are also
+   localStorage preferences, scoped by the current account ID.
+
+Q: Is it responsive?
+A: Yes. CSS media queries rearrange the desktop navigation into a drawer on
+   small screens and adjust the composer and chat layout.
+
+Q: What would you improve next?
+A: Add automated tests, email or college-domain verification, CAPTCHA or MFA,
+   more moderation/reporting tools, and a production database/realtime setup
+   for multiple server instances.
+
+
+11. QUICK "WHICH FILE?" CHEAT SHEET
+-----------------------------------
+
+Page markup / controls             public/index.html
+Visual design / themes / animation public/style.css
+Frontend actions and rendering     public/app.js
+API, database, auth, realtime      server.js
+Run commands and dependencies      package.json
+Exact npm dependency versions      package-lock.json
+Setup/deployment overview          README.md and .env.example
+Local private configuration       .env (do not reveal or commit)
+Persistent local data              chat.db (do not share)
+Editor workspace                   public/campus-chat.code-workspace
+Visual reference                   Social Concept Application (iPad)(1).jpg
+
+
+12. FINAL PRESENTATION REMINDERS
+--------------------------------
+
+- Explain the architecture as browser -> Express/API or Socket.IO -> SQLite.
+- Emphasize that the server enforces authorization; the frontend is not the
+  security boundary.
+- Demonstrate live behavior with two test accounts.
+- Distinguish a channel (group conversation) from a DM (private two-person
+  conversation).
+- Explain that localStorage settings (theme and pins) are browser-side
+  preferences, unlike profiles/messages, which are stored on the server.
+- Do not show .env, chat.db, real recovery codes, passwords, or private user
+  information during the presentation.
+- README.md has historical text that conflicts with current theme/search/pin
+  features. Refer to the running app and source code for current behavior.

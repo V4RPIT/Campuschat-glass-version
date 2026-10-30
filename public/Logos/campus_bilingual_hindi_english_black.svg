@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1380 460" width="1380" height="460">
+  <defs>
+    <style>
+      .glyph { fill: #000000; fill-rule: evenodd; }
+    </style>
+  </defs>
+
+  <!-- 1. DUAL ANGULAR E-MATRAS (ै) -->
+  <polygon class="glyph" points="
+    215,145 
+    135,48 
+    173,28 
+    243,118 
+    243,145
+  " />
+  <polygon class="glyph" points="
+    310,145 
+    230,48 
+    268,28 
+    338,118 
+    338,145
+  " />
+
+  <!-- 2. SHIROREKHA (Headline Bar across Hindi portion x=80 to x=790) -->
+  <polygon class="glyph" points="
+    80,145 
+    790,145 
+    790,190 
+    80,190
+  " />
+
+  <!-- 3. LETTER क (Ka) -->
+  <polygon class="glyph" points="
+    225,190 
+    275,190 
+    275,375 
+    225,375
+  " />
+  <path class="glyph" d="
+    M 230,220 
+    L 230,330 
+    L 160,330 
+    L 110,275 
+    L 160,220 
+    Z 
+    M 190,255 
+    L 160,255 
+    L 145,275 
+    L 160,295 
+    L 190,295 
+    Z
+  " />
+  <polygon class="glyph" points="
+    270,235 
+    330,235 
+    365,285 
+    335,375 
+    293,375 
+    313,310 
+    270,280
+  " />
+
+  <!-- 4. HALF-MA (म्) - Distinct vertical stem, faceted loop, and connecting arm -->
+  <path class="glyph" d="
+    M 385,190 
+    L 435,190 
+    L 435,255 
+    L 475,255 
+    L 475,305 
+    L 435,305 
+    L 435,325 
+    L 505,325 
+    L 505,375 
+    L 385,375 
+    L 385,285 
+    L 405,285 
+    L 405,225 
+    L 385,225 
+    Z
+  " />
+
+  <!-- 5. LETTER प (Pa) - DISTINCT, 100% READABLE OPEN U-LOOP & STEM -->
+  <path class="glyph" d="
+    M 535,190 
+    L 585,190 
+    L 585,260 
+    L 655,260 
+    L 655,190 
+    L 705,190 
+    L 705,375 
+    L 655,375 
+    L 655,310 
+    L 585,310 
+    L 550,310 
+    L 535,285 
+    Z
+  " />
+
+  <!-- 6. ENGLISH LETTER 'U' (HelNA faceted style) -->
+  <path class="glyph" d="
+    M 820,165 
+    L 875,165 
+    L 875,320 
+    L 925,320 
+    L 925,165 
+    L 980,165 
+    L 980,345 
+    L 945,375 
+    L 855,375 
+    L 820,345 
+    Z
+  " />
+
+  <!-- 7. ENGLISH LETTER 'S' (HelNA faceted style) -->
+  <path class="glyph" d="
+    M 1005,165 
+    L 1175,165 
+    L 1175,235 
+    L 1075,235 
+    L 1075,255 
+    L 1140,255 
+    L 1175,290 
+    L 1175,375 
+    L 1005,375 
+    L 1005,305 
+    L 1105,305 
+    L 1105,285 
+    L 1040,285 
+    L 1005,250 
+    Z
+  " />
+</svg>

@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 460" width="1260" height="460">
+  <defs>
+    <style>
+      .glyph { fill: #000000; fill-rule: evenodd; }
+    </style>
+  </defs>
+
+  <!-- 1. DUAL ANGULAR E-MATRAS (ै) pointing up-left (HelNA style) -->
+  <polygon class="glyph" points="
+    220,145 
+    140,48 
+    178,28 
+    248,118 
+    248,145
+  " />
+  <polygon class="glyph" points="
+    315,145 
+    235,48 
+    273,28 
+    343,118 
+    343,145
+  " />
+
+  <!-- 2. DIAMOND BINDU / ANUSVARA above Shirorekha for the 'm' nasal sound -->
+  <polygon class="glyph" points="
+    440,65 
+    470,95 
+    440,125 
+    410,95
+  " />
+
+  <!-- 3. CONTINUOUS SHIROREKHA (Headline bar over Ka and Pa) -->
+  <polygon class="glyph" points="
+    80,145 
+    645,145 
+    645,190 
+    80,190
+  " />
+
+  <!-- 4. LETTER क (Ka) -->
+  <!-- Vertical stem of Ka -->
+  <polygon class="glyph" points="
+    230,190 
+    280,190 
+    280,375 
+    230,375
+  " />
+  <!-- Left faceted loop of Ka -->
+  <path class="glyph" d="
+    M 235,220 
+    L 235,330 
+    L 165,330 
+    L 115,275 
+    L 165,220 
+    Z 
+    M 195,255 
+    L 165,255 
+    L 150,275 
+    L 165,295 
+    L 195,295 
+    Z
+  " />
+  <!-- Right tail of Ka (faceted angular sweep) -->
+  <polygon class="glyph" points="
+    275,235 
+    335,235 
+    370,285 
+    340,375 
+    298,375 
+    318,310 
+    275,280
+  " />
+
+  <!-- 5. LETTER प (Pa) - 100% READABLE, OPEN TOP U-LOOP & VERTICAL STEM -->
+  <!-- Left U-stroke: drops from shirorekha, loops under, joins stem at y=260-310 -->
+  <!-- Notice the OPEN valley from x=475 to 540 between y=190 and 260! -->
+  <path class="glyph" d="
+    M 425,190 
+    L 475,190 
+    L 475,260 
+    L 540,260 
+    L 540,190 
+    L 590,190 
+    L 590,375 
+    L 540,375 
+    L 540,310 
+    L 475,310 
+    L 440,310 
+    L 425,285 
+    Z
+  " />
+
+  <!-- 6. ENGLISH LETTER 'U' (Matching the angular blocky weight of हेलNA) -->
+  <path class="glyph" d="
+    M 670,165 
+    L 725,165 
+    L 725,320 
+    L 775,320 
+    L 775,165 
+    L 830,165 
+    L 830,345 
+    L 795,375 
+    L 705,375 
+    L 670,345 
+    Z
+  " />
+
+  <!-- 7. ENGLISH LETTER 'S' (Chunky faceted geometric S with 45-deg cuts) -->
+  <path class="glyph" d="
+    M 855,165 
+    L 1025,165 
+    L 1025,235 
+    L 925,235 
+    L 925,255 
+    L 990,255 
+    L 1025,290 
+    L 1025,375 
+    L 855,375 
+    L 855,305 
+    L 955,305 
+    L 955,285 
+    L 890,285 
+    L 855,250 
+    Z
+  " />
+</svg>

@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Environment & Secrets (Never commit credentials)
+.env
+.env.local
+
+# SQLite Database & Storage (Keeps user data private & repo lightweight)
+*.db
+*.db-wal
+*.db-shm
+
+# TypeScript & Build Caches
+*.tsbuildinfo
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+*.code-workspace
+.vscode/
+.idea/
+
+# Presentation Decks & Generator Scripts (Kept locally for presentation, omitted from code repo)
+*.pptx
+ppts/
+presentation_assets/
+build_deck*.py
