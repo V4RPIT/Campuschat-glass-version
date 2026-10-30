@@ -1,4 +1,4 @@
-# 💬 CampUS Chat
+# <img src="public/campus_monogram_badge_white.svg" alt="CampUS logo" height="40"> CampUS Chat
 
 > **The anonymous chat space for your class.**
 
@@ -94,8 +94,8 @@ No frontend build step is required for the live client.
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/campus-chat.git
-cd campus-chat
+git clone https://github.com/V4RPIT/Campuschat-glass-version.git
+cd Campuschat-glass-version
 ```
 
 ### 2. Install dependencies
